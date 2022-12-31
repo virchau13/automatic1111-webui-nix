@@ -1,4 +1,4 @@
-# [AUTOMATIC1111/stable-diffusion-webui] for CUDA on NixOS
+# [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) for CUDA on NixOS
 
 This is literally just a `shell.nix` and a `flake.nix` for stable-diffusion-webui using CUDA on NixOS.
 This currently doesn't support AMD cards (I don't have one) but feel free to contribute.
