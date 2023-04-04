@@ -1,1 +1,1 @@
-let pkgs = import <nixpkgs> {}; in import ./impl.nix pkgs
+let pkgs = import <nixpkgs> { }; in import ./impl.nix { inherit pkgs; }
