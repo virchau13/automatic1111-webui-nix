@@ -1,7 +1,6 @@
 { pkgs, isCUDA ? true, ... }:
 
 let
-  cuda_path = if isCUDA then pkgs.cudatoolkit else "";
   hardware_deps = with pkgs;
     if isCUDA then [
       cudatoolkit
@@ -36,6 +35,6 @@ pkgs.mkShell rec {
         glib
     ];
     LD_LIBRARY_PATH=pkgs.lib.makeLibraryPath buildInputs;
-    CUDA_PATH=pkgs.cudatoolkit;
-    EXTRA_LDFLAGS="-L${pkgs.linuxPackages.nvidia_x11}/lib";
+    CUDA_PATH = pkgs.lib.optionalString isCUDA pkgs.cudatoolkit;
+    EXTRA_LDFLAGS = pkgs.lib.optionalString isCUDA "-L${pkgs.linuxPackages.nvidia_x11}/lib";
 }
