@@ -9,7 +9,8 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
 git clone https://github.com/virchau13/automatic1111-webui-nix
 cp automatic1111-webui-nix/*.nix stable-diffusion-webui/
 cd stable-diffusion-webui
-nix shell # or `nix-shell` if you're not using flakes
+git add *.nix
+nix develop # or `nix-shell` if you're not using flakes
 # just use `./webui.sh` to run it, it'll install all the rest automatically
 # follow the tutorials at the original project for setting up Stable Diffusion / GFPGAN / whatever
 ```
