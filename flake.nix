@@ -15,7 +15,8 @@
                 config.allowUnfree = true;
             };
         in { 
-            devShells.default = import ./impl.nix pkgs;
+            devShells.default = import ./impl.nix {inherit pkgs;};
+            devShells.rocm = import ./impl.nix {inherit pkgs; isCUDA=false;};
         }
     );
 }
