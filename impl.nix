@@ -13,6 +13,9 @@ let
       xorg.libXv
       xorg.libXrandr
       zlib
+      
+      # for xformers
+      gcc
     ] else [
       rocm-runtime
       pciutils
@@ -33,8 +36,8 @@ pkgs.mkShell rec {
         procps gnumake util-linux m4 gperf unzip
         libGLU libGL
         glib
-    ];
-    LD_LIBRARY_PATH=pkgs.lib.makeLibraryPath buildInputs;
+      ];
+    LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
     CUDA_PATH = pkgs.lib.optionalString isCUDA pkgs.cudatoolkit;
     EXTRA_LDFLAGS = pkgs.lib.optionalString isCUDA "-L${pkgs.linuxPackages.nvidia_x11}/lib";
 }

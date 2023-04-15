@@ -22,6 +22,12 @@ You might want to switch to high performance mode on battery-powered devices.
 This is just a Nix shell for bootstrapping the web UI, not an actual pure flake; the `./webui.sh` will still install
 a bunch of Python packages (into a venv, so not polluting your system) when you run it.
 
+
+## Troubleshooting 
+
+### xformers
+Run `./webui.sh --xformers` to set up xformers. If this command fails, try git pulling from the source repository, then deleting the venv (`rm -r venv`) and reinstalling everything from scratch again (sometimes the venv will keep old packages around forever even if they should be updated.)
+
 ## Credits
 - AUTOMATIC1111 for obvious reasons.
 - rprospero for [ROCm support](https://github.com/virchau13/automatic1111-webui-nix/pull/3).
