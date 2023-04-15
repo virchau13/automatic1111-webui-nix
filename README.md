@@ -1,7 +1,7 @@
-# [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) for CUDA on NixOS
+# [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) for CUDA and ROCm on NixOS
 
-This is literally just a `shell.nix`/`flake.nix` for stable-diffusion-webui using CUDA on NixOS.
-This currently doesn't support AMD cards (I don't have one) but feel free to contribute.
+This is literally just a `shell.nix`/`flake.nix` for stable-diffusion-webui that also enables CUDA/ROCm on NixOS.
+This supports both NVIDIA GPUs (using CUDA) and AMD GPUs (using ROCm).
 
 ## Usage
 ```bash
@@ -24,4 +24,5 @@ a bunch of Python packages (into a venv, so not polluting your system) when you 
 
 ## Credits
 - AUTOMATIC1111 for obvious reasons.
+- rprospero for [ROCm support](https://github.com/virchau13/automatic1111-webui-nix/pull/3).
 - polypoyo for [the original draft of this](https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/4736).
