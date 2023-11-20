@@ -1,8 +1,8 @@
-{ pkgs, isCUDA ? true, ... }:
+{ pkgs, variant ? "CUDA", ... }:
 
 let
   hardware_deps = with pkgs;
-    if isCUDA then [
+    if variant == "CUDA" then [
       cudatoolkit
       linuxPackages.nvidia_x11
       xorg.libXi
@@ -13,13 +13,13 @@ let
       xorg.libXv
       xorg.libXrandr
       zlib
-      
+
       # for xformers
       gcc
-    ] else [
+    ] else if variant == "ROCM" then [
       rocm-runtime
       pciutils
-    ];
+    ] else [];
 
 in
 pkgs.mkShell rec {
@@ -38,6 +38,6 @@ pkgs.mkShell rec {
         glib
       ];
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
-    CUDA_PATH = pkgs.lib.optionalString isCUDA pkgs.cudatoolkit;
-    EXTRA_LDFLAGS = pkgs.lib.optionalString isCUDA "-L${pkgs.linuxPackages.nvidia_x11}/lib";
+    CUDA_PATH = pkgs.lib.optionalString (variant == "CUDA") pkgs.cudatoolkit;
+    EXTRA_LDFLAGS = pkgs.lib.optionalString (variant == "CUDA") "-L${pkgs.linuxPackages.nvidia_x11}/lib";
 }
