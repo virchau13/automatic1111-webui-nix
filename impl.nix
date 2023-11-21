@@ -17,7 +17,7 @@ let
       # for xformers
       gcc
     ] else if variant == "ROCM" then [
-      rocm-runtime
+      rocmPackages.rocm-runtime
       pciutils
     ] else [];
 
