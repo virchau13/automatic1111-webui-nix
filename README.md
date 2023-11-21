@@ -7,24 +7,29 @@ This supports NVIDIA GPUs (using CUDA), AMD GPUs (using ROCm), and CPU compute (
 
 ### Setup
 
+First, run:
 ```bash
 git clone https://github.com/virchau13/automatic1111-webui-nix
-cd automatic1111-webui-nix
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
+cp automatic1111-webui-nix/*.nix stable-diffusion-webui/
+cd stable-diffusion-webui
+git add *.nix
 ```
 
-### Flakes
+After that, choose the command according to your platform:
+
+#### Flakes
 
 ```bash
-nix develop # CPU or Apple silicon
+nix develop .#cpu # CPU or Apple silicon
 nix develop .#cuda # CUDA
 nix develop .#rocm # ROCm
 ```
 
-### Non-flakes
+#### Non-flakes
 
 ```bash
-nix-shell # CPU
+nix-shell --argstr variant CPU # CPU
 nix-shell --argstr variant CUDA # CUDA
 nix-shell --argstr variant ROCM # ROCm
 ```
@@ -52,5 +57,5 @@ Run `./webui.sh --xformers` to set up xformers. If this command fails, try git p
 ## Credits
 - AUTOMATIC1111 for obvious reasons.
 - rprospero for [ROCm support](https://github.com/virchau13/automatic1111-webui-nix/pull/3).
-- Cloudef for [CPU compute / Apple Silicon support](https://github.com/virchau13/automatic1111-webui-nix/pull/10)
+- Cloudef for [CPU compute / Apple Silicon support](https://github.com/virchau13/automatic1111-webui-nix/pull/10).
 - polypoyo for [the original draft of this](https://github.com/AUTOMATIC1111/stable-diffusion-webui/pull/4736).

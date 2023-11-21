@@ -1,4 +1,4 @@
-{ pkgs, variant ? "CUDA", ... }:
+{ pkgs, variant, ... }:
 
 let
   hardware_deps = with pkgs;
@@ -19,7 +19,8 @@ let
     ] else if variant == "ROCM" then [
       rocmPackages.rocm-runtime
       pciutils
-    ] else [];
+    ] else if variant == "CPU" then [
+    ] else throw "You need to specify which variant you want: CPU, ROCm, or CUDA.";
 
 in
 pkgs.mkShell rec {
