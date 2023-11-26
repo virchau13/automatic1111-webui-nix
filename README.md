@@ -41,6 +41,15 @@ cd automatic1111-webui-nix
 ./webui.sh
 # follow the tutorials at the original project for setting up Stable Diffusion / GFPGAN / whatever
 ```
+Example for Nvidia Laptop 
+```bash
+nvidia-offload nix-shell
+nvidia-offload bash webui.sh --skip-torch-cuda-test --percision full --no-half
+# nvidia-offload uses prime to turn on the graphics card
+# --skip-torch-cuda-test does exactly as it says to avoid graphic card tests
+# --percision full --no-half skips tcmalloc as this software doesn't use cpu
+```
+
 
 You might want to switch to high performance mode on battery-powered devices.
 
