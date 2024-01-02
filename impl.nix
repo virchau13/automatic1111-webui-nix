@@ -1,8 +1,8 @@
-{ pkgs, isCUDA ? true, ... }:
+{ pkgs, variant, ... }:
 
 let
   hardware_deps = with pkgs;
-    if isCUDA then [
+    if variant == "CUDA" then [
       cudatoolkit
       linuxPackages.nvidia_x11
       xorg.libXi
@@ -13,14 +13,13 @@ let
       xorg.libXv
       xorg.libXrandr
       zlib
-      gperftools
-      
       # for xformers
       gcc
-    ] else [
-      rocm-runtime
+    ] else if variant == "ROCM" then [
+      rocmPackages.rocm-runtime
       pciutils
-    ];
+    ] else if variant == "CPU" then [
+    ] else throw "You need to specify which variant you want: CPU, ROCm, or CUDA.";
 
 in
 pkgs.mkShell rec {
@@ -40,6 +39,6 @@ pkgs.mkShell rec {
       ];
     LD_PRELOAD = "${pkgs.gperftools}/lib/libtcmalloc.so";
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
-    CUDA_PATH = pkgs.lib.optionalString isCUDA pkgs.cudatoolkit;
-    EXTRA_LDFLAGS = pkgs.lib.optionalString isCUDA "-L${pkgs.linuxPackages.nvidia_x11}/lib";
+    CUDA_PATH = pkgs.lib.optionalString (variant == "CUDA") pkgs.cudatoolkit;
+    EXTRA_LDFLAGS = pkgs.lib.optionalString (variant == "CUDA") "-L${pkgs.linuxPackages.nvidia_x11}/lib";
 }

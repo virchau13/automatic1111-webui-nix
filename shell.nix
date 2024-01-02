@@ -1,4 +1,4 @@
-{ isCUDA ? true }:
+{ variant ? "NONE" }:
 
 let pkgs = import <nixpkgs> { };
-in import ./impl.nix { inherit pkgs isCUDA; }
+in import ./impl.nix { inherit pkgs variant; }
