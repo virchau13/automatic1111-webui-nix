@@ -13,7 +13,6 @@ let
       xorg.libXv
       xorg.libXrandr
       zlib
-
       # for xformers
       gcc
     ] else if variant == "ROCM" then [
@@ -38,6 +37,7 @@ pkgs.mkShell rec {
         libGLU libGL
         glib
       ];
+    LD_PRELOAD = "${pkgs.gperftools}/lib/libtcmalloc.so";
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
     CUDA_PATH = pkgs.lib.optionalString (variant == "CUDA") pkgs.cudatoolkit;
     EXTRA_LDFLAGS = pkgs.lib.optionalString (variant == "CUDA") "-L${pkgs.linuxPackages.nvidia_x11}/lib";
