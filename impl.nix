@@ -37,6 +37,7 @@ pkgs.mkShell rec {
         procps gnumake util-linux m4 gperf unzip
         libGLU libGL
         glib
+        bc
       ];
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath buildInputs;
     CUDA_PATH = pkgs.lib.optionalString (variant == "CUDA") pkgs.cudatoolkit;
